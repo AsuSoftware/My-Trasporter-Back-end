@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 import java.util.UUID;
 
 /** my-transporter Created by Antonio on 12/21/2020 */
@@ -49,4 +50,5 @@ public class User {
     @ManyToOne
     @JoinColumn(name="company_id", nullable=false)
     private Company company;
+
 }
