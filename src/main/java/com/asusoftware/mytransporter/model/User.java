@@ -7,7 +7,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.util.List;
 import java.util.UUID;
 
 /** my-transporter Created by Antonio on 12/21/2020 */
@@ -22,11 +21,11 @@ public class User {
     UUID id;
 
     @NotNull
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
     @NotNull
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
     @Email
@@ -35,11 +34,12 @@ public class User {
     private String email;
 
     @NotNull
-    @Column(name = "phone")
+    @Column(name = "phone", nullable = false)
     private String phone;
 
+    // in viitor vor fii obiecte address
     @NotNull
-    @Column(name = "address")
+    @Column(name = "address", nullable = false)
     private String address;
 
     @NotNull
@@ -47,8 +47,8 @@ public class User {
     @Column(name = "user_type", nullable = false)
     private UserType type;
 
-    @ManyToOne
-    @JoinColumn(name="company_id", nullable=false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="company_id")
     private Company company;
 
 }

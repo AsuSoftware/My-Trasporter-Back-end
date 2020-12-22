@@ -33,6 +33,7 @@ public class UserCreatorImpl implements UserCreator {
         user.setPhone(createUserDto.getPhone());
         user.setAddress(createUserDto.getAddress());
         user.setType(createUserDto.getType());
+        user.setCompany(createUserDto.getCompany());
         return user;
     }
 }

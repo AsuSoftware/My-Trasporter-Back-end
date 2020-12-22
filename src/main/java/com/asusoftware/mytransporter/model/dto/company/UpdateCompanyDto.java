@@ -4,7 +4,6 @@ import com.asusoftware.mytransporter.model.User;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -16,8 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 public class UpdateCompanyDto {
-    @NotBlank private String companyName;
-    @Email @NotBlank private String email;
+    @NotBlank private String name;
     @NotBlank private String address;
-    @NotNull private List<User> users;
+    @NotNull private List<User> couriers;
 }

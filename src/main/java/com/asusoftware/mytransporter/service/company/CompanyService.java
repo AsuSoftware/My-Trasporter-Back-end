@@ -13,7 +13,6 @@ import java.util.UUID;
 public interface CompanyService {
 
     void create(CreateCompanyDto companyDto);
-    void update(UUID id, UpdateCompanyDto updateCompanyDto);
     CompanyDto findById(UUID id);
     List<CompanyDto> findAll();
     List<CompanyDto> findAllById(Iterable<UUID> ids);

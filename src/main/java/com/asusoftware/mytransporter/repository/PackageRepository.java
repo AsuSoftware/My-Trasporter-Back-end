@@ -1,5 +1,6 @@
 package com.asusoftware.mytransporter.repository;
 
+import com.asusoftware.mytransporter.model.Package;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

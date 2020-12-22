@@ -1,5 +1,6 @@
 package com.asusoftware.mytransporter.model.dto.user;
 
+import com.asusoftware.mytransporter.model.Company;
 import com.asusoftware.mytransporter.model.UserType;
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
@@ -23,4 +24,5 @@ public class CreateUserDto {
     @Nullable private String phone;
     @Nullable private String address;
     @NotNull private UserType type;
+    private Company company;
 }

@@ -4,9 +4,7 @@ import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.Email;
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,19 +20,16 @@ public class Company {
 
     @NotNull
     @Column(name = "company_name", nullable = false)
-    private String companyName;
-
-    @Email
-    @NotBlank
-    @Column(name = "email", nullable = false)
-    private String email;
+    private String name;
 
     @NotNull
     @Column(name = "address", nullable = false)
     private String address;
 
-    // Employee
-    @OneToMany(mappedBy = "company")
-    private List<User> userList;
+    // @TODO add price per kg
+
+    @OneToMany(cascade = CascadeType.DETACH)
+    @JoinColumn(name="couriers_id")
+    private List<User> couriers;
 
 }

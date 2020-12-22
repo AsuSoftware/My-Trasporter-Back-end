@@ -24,9 +24,8 @@ public class CompanyCreatorImpl implements CompanyCreator {
 
     private Company createCompany(CreateCompanyDto companyDto) {
         Company company = new Company();
-        company.setCompanyName(companyDto.getCompanyName());
+        company.setName(companyDto.getName());
         company.setAddress(companyDto.getAddress());
-        company.setEmail(companyDto.getEmail());
         return company;
     }
 }
