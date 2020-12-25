@@ -9,5 +9,5 @@ import java.util.UUID;
  * Created by Catalin on 12/24/2020
  **/
 public interface EmployeeService {
-    void create(UUID id, CreateEmployeeDto createEmployee);
+    void create(CreateEmployeeDto createEmployee);
 }

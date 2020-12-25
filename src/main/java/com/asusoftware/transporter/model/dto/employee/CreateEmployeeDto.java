@@ -9,6 +9,7 @@ import org.springframework.lang.Nullable;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 /**
  * transporter Created by Antonio on 12/25/2020
@@ -17,6 +18,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 public class CreateEmployeeDto {
+    @NotNull private UUID companyId;
     @NotBlank private String firstName;
     @NotBlank private String lastName;
     @Email @Nullable private String email;

@@ -9,6 +9,7 @@ import com.asusoftware.transporter.service.company.CompanyCreator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -30,9 +31,7 @@ public class CompanyCreatorImpl implements CompanyCreator {
     private Company mapCompanyDtoToEntity(CreateCompanyDto createCompanyDto) {
         Company company = new Company();
         company.setName(createCompanyDto.getName());
-        if (createCompanyDto.getAddress() != null) {
-            company.setAddress(mapAddressDtoToEntity(createCompanyDto.getAddress()));
-        }
+        company.setAddress(Optional.ofNullable(createCompanyDto.getAddress()).map(this::mapAddressDtoToEntity).orElse(null));
         company.setDescription(createCompanyDto.getDescription());
         company.setImage(createCompanyDto.getImage());
         return company;

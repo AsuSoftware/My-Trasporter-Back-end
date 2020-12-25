@@ -15,8 +15,8 @@ public class EmployeeController {
 
   private final EmployeeService employeeService;
 
-  @PostMapping(path = "/{companyId}")
-  public void create(@PathVariable("id")UUID id, @RequestBody CreateEmployeeDto createEmployeeDto) {
-    employeeService.create(id, createEmployeeDto);
+  @PostMapping
+  public void create(@RequestBody CreateEmployeeDto createEmployeeDto) {
+    employeeService.create(createEmployeeDto);
   }
 }
