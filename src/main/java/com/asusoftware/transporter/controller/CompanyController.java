@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 
 /** my-transporter Created by Catalin on 12/24/2020 */
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/api/v1/companies")
 public class CompanyController {
-
   private final CompanyService companyService;
 
   @PostMapping
