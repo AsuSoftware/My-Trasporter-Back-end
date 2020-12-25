@@ -1,4 +1,4 @@
-package com.asusoftware.transporter.model.dto;
+package com.asusoftware.transporter.model.dto.address;
 
 import lombok.Getter;
 import lombok.Setter;

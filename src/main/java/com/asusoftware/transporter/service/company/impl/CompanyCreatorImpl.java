@@ -2,8 +2,8 @@ package com.asusoftware.transporter.service.company.impl;
 
 import com.asusoftware.transporter.model.Address;
 import com.asusoftware.transporter.model.Company;
-import com.asusoftware.transporter.model.dto.AddressDto;
-import com.asusoftware.transporter.model.dto.CreateCompanyDto;
+import com.asusoftware.transporter.model.dto.address.AddressDto;
+import com.asusoftware.transporter.model.dto.company.CreateCompanyDto;
 import com.asusoftware.transporter.repository.CompanyRepository;
 import com.asusoftware.transporter.service.company.CompanyCreator;
 import lombok.RequiredArgsConstructor;

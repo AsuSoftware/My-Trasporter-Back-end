@@ -4,9 +4,8 @@ import com.asusoftware.transporter.model.dto.user.CreateUserDto;
 
 
 /**
- * my-transporter
- * Created by Catalin on 12/24/2020
- **/
-public interface UserService {
+ * transporter Created by Antonio on 12/25/2020
+ */
+public interface UserCreator {
     void create(CreateUserDto createUserDto);
 }

@@ -1,6 +1,6 @@
 package com.asusoftware.transporter.controller;
 
-import com.asusoftware.transporter.model.dto.CreateCompanyDto;
+import com.asusoftware.transporter.model.dto.company.CreateCompanyDto;
 import com.asusoftware.transporter.service.company.CompanyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,6 +1,6 @@
 package com.asusoftware.transporter.service.company.impl;
 
-import com.asusoftware.transporter.model.dto.CreateCompanyDto;
+import com.asusoftware.transporter.model.dto.company.CreateCompanyDto;
 import com.asusoftware.transporter.service.company.CompanyCreator;
 import com.asusoftware.transporter.service.company.CompanyService;
 import lombok.RequiredArgsConstructor;

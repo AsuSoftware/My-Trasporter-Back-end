@@ -1,9 +1,11 @@
 package com.asusoftware.transporter.controller;
 
+import com.asusoftware.transporter.model.dto.employee.CreateEmployeeDto;
 import com.asusoftware.transporter.service.employee.EmployeeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 /** my-transporter Created by Catalin on 12/24/2020 */
 @RestController
@@ -12,4 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class EmployeeController {
 
   private final EmployeeService employeeService;
+
+  @PostMapping(path = "/{companyId}")
+  public void create(@PathVariable("id")UUID id, @RequestBody CreateEmployeeDto createEmployeeDto) {
+    employeeService.create(id, createEmployeeDto);
+  }
 }
