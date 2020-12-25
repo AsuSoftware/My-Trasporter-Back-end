@@ -1,6 +1,6 @@
 package com.asusoftware.transporter.service.company;
 
-import com.asusoftware.transporter.model.dto.CreateCompanyDto;
+import com.asusoftware.transporter.model.dto.company.CreateCompanyDto;
 
 import java.util.UUID;
 
