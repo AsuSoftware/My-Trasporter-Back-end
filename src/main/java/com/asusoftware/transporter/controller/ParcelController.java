@@ -1,6 +1,6 @@
 package com.asusoftware.transporter.controller;
 
-import com.asusoftware.transporter.service.parcel.ParcelService;
+import com.asusoftware.transporter.service.ParcelService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

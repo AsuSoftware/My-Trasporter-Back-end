@@ -1,5 +1,6 @@
-package com.asusoftware.transporter.model.dto.address;
+package com.asusoftware.transporter.model.dto;
 
+import com.asusoftware.transporter.model.Address;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.lang.Nullable;
@@ -14,4 +15,15 @@ public class AddressDto {
   @Nullable private String street;
   @Nullable private String streetNumber;
   @Nullable private String details;
+
+  public Address toAddress() {
+    Address address = new Address();
+    address.setCity(city);
+    address.setCountry(country);
+    address.setStreet(street);
+    address.setStreetNumber(streetNumber);
+    address.setDetails(details);
+    address.setZip(zip);
+    return address;
+  }
 }

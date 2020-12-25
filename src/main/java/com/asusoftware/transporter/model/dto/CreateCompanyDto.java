@@ -1,6 +1,6 @@
-package com.asusoftware.transporter.model.dto.company;
+package com.asusoftware.transporter.model.dto;
 
-import com.asusoftware.transporter.model.dto.address.AddressDto;
+import com.asusoftware.transporter.model.dto.AddressDto;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.lang.Nullable;
