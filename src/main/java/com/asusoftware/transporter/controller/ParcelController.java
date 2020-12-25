@@ -1,9 +1,12 @@
 package com.asusoftware.transporter.controller;
 
+import com.asusoftware.transporter.model.Parcel;
+import com.asusoftware.transporter.model.dto.CreateParcelDto;
 import com.asusoftware.transporter.service.ParcelService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 /** my-transporter Created by Catalin on 12/24/2020 */
 @RestController
@@ -12,4 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class ParcelController {
 
   private final ParcelService parcelService;
+
+  @PostMapping
+  public void create(@RequestBody CreateParcelDto createParcelDto) {
+    parcelService.create(createParcelDto);
+  }
+
+  @GetMapping(path = "/{id}")
+  public Parcel findById(@PathVariable("id") UUID id) {
+    return parcelService.findById(id);
+  }
 }
