@@ -9,6 +9,5 @@ import java.util.UUID;
 /** my-transporter Created by Catalin on 12/24/2020 */
 public interface ParcelService {
   void create(CreateParcelDto createParcelDto);
-
-  ParcelDto findById(UUID id);
+  Parcel findById(UUID id);
 }

@@ -29,8 +29,8 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public UserDto findById(UUID id) {
-    return UserDto.mapFromEntity(userRepository.findById(id).orElseThrow(UserNotFoundException::new));
+  public User findById(UUID id) {
+    return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
   }
 
   @Override

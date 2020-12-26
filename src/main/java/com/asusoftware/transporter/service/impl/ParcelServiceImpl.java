@@ -33,8 +33,8 @@ public class ParcelServiceImpl implements ParcelService {
     }
 
     @Override
-    public ParcelDto findById(UUID id) {
-        return ParcelDto.mapFromEntity(parcelRepository.findById(id).orElseThrow(ParcelNotFoundException::new));
+    public Parcel findById(UUID id) {
+        return parcelRepository.findById(id).orElseThrow(ParcelNotFoundException::new);
     }
 
     private Parcel createParcel(CreateParcelDto createParcelDto) {

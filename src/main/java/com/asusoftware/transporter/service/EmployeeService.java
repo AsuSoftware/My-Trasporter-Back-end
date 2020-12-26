@@ -11,7 +11,7 @@ import java.util.UUID;
 public interface EmployeeService {
   void create(CreateEmployeeDto createEmployeeDto);
 
-  EmployeeDto findById(UUID id);
+  Employee findById(UUID id);
 
   void delete(UUID id);
 

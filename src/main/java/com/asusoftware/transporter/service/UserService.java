@@ -9,8 +9,6 @@ import java.util.UUID;
 /** my-transporter Created by Catalin on 12/24/2020 */
 public interface UserService {
   void create(CreateUserDto createUserDto);
-
-  UserDto findById(UUID id);
-
+  User findById(UUID id);
   void delete(UUID id);
 }

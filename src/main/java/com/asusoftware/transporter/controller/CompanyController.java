@@ -21,9 +21,4 @@ public class CompanyController {
   public UUID create(@Valid @RequestBody CreateCompanyDto createCompanyDto) {
     return companyService.create(createCompanyDto);
   }
-
-  @GetMapping(path = "/{id}")
-  public CompanyDto findById(@PathVariable("id") UUID id) {
-    return companyService.findById(id);
-  }
 }

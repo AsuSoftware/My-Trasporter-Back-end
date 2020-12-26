@@ -11,5 +11,5 @@ public interface CompanyService {
 
   UUID create(CreateCompanyDto createCompanyDto);
 
-  CompanyDto findById(UUID id);
+  Company findById(UUID id);
 }

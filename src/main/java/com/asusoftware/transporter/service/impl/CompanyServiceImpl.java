@@ -30,8 +30,8 @@ public class CompanyServiceImpl implements CompanyService {
   }
 
   @Override
-  public CompanyDto findById(UUID id) {
-    return CompanyDto.mapFromEntity(companyRepository.findById(id).orElseThrow(CompanyNotFoundException::new));
+  public Company findById(UUID id) {
+    return companyRepository.findById(id).orElseThrow(CompanyNotFoundException::new);
   }
 
   private Company createCompany(CreateCompanyDto createCompanyDto) {
