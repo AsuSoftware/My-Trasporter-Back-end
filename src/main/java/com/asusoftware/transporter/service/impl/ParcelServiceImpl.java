@@ -6,11 +6,14 @@ import com.asusoftware.transporter.model.User;
 import com.asusoftware.transporter.model.dto.AddressDto;
 import com.asusoftware.transporter.model.dto.CreateParcelDto;
 import com.asusoftware.transporter.model.dto.CreateUserDto;
+import com.asusoftware.transporter.model.dto.ParcelDto;
 import com.asusoftware.transporter.repository.ParcelRepository;
 import com.asusoftware.transporter.service.ParcelService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -27,12 +30,13 @@ public class ParcelServiceImpl implements ParcelService {
     }
 
     @Override
-    public Parcel findById(UUID id) {
-        return parcelRepository.findById(id).orElseThrow(ParcelNotFoundException::new);
+    public ParcelDto findById(UUID id) {
+        return ParcelDto.mapFromEntity(parcelRepository.findById(id).orElseThrow(ParcelNotFoundException::new));
     }
 
     private Parcel createParcel(CreateParcelDto createParcelDto) {
         Parcel parcel = new Parcel();
+        parcel.setRegisteredDate(LocalDateTime.now(ZoneOffset.UTC));
         parcel.setSender(createUser(createParcelDto.getSender()));
         parcel.setReceiver(createUser(createParcelDto.getReceiver()));
         parcel.setDetails(createParcelDto.getDetails());

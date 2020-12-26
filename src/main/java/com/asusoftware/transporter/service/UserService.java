@@ -2,6 +2,7 @@ package com.asusoftware.transporter.service;
 
 import com.asusoftware.transporter.model.User;
 import com.asusoftware.transporter.model.dto.CreateUserDto;
+import com.asusoftware.transporter.model.dto.UserDto;
 
 import java.util.UUID;
 
@@ -9,7 +10,7 @@ import java.util.UUID;
 public interface UserService {
   void create(CreateUserDto createUserDto);
 
-  User findById(UUID id);
+  UserDto findById(UUID id);
 
   void delete(UUID id);
 }

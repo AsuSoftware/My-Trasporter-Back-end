@@ -26,4 +26,15 @@ public class AddressDto {
     address.setZip(zip);
     return address;
   }
+
+  public static AddressDto mapFromEntity(Address address) {
+    AddressDto addressDto = new AddressDto();
+    addressDto.setCity(address.getCity());
+    addressDto.setCountry(address.getCountry());
+    addressDto.setZip(address.getZip());
+    addressDto.setStreet(address.getStreet());
+    addressDto.setStreetNumber(address.getStreetNumber());
+    addressDto.setDetails(address.getDetails());
+    return addressDto;
+  }
 }

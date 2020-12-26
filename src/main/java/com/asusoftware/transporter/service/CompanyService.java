@@ -1,6 +1,7 @@
 package com.asusoftware.transporter.service;
 
 import com.asusoftware.transporter.model.Company;
+import com.asusoftware.transporter.model.dto.CompanyDto;
 import com.asusoftware.transporter.model.dto.CreateCompanyDto;
 
 import java.util.UUID;
@@ -10,5 +11,5 @@ public interface CompanyService {
 
   UUID create(CreateCompanyDto createCompanyDto);
 
-  Company findById(UUID id);
+  CompanyDto findById(UUID id);
 }

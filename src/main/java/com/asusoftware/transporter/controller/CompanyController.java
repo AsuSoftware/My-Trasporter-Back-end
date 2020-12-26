@@ -1,6 +1,6 @@
 package com.asusoftware.transporter.controller;
 
-import com.asusoftware.transporter.model.Company;
+import com.asusoftware.transporter.model.dto.CompanyDto;
 import com.asusoftware.transporter.model.dto.CreateCompanyDto;
 import com.asusoftware.transporter.service.CompanyService;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ public class CompanyController {
   }
 
   @GetMapping(path = "/{id}")
-  public Company findById(@PathVariable("id") UUID id) {
+  public CompanyDto findById(@PathVariable("id") UUID id) {
     return companyService.findById(id);
   }
 }

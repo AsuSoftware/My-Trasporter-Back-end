@@ -4,6 +4,7 @@ import com.asusoftware.transporter.exception.UserNotFoundException;
 import com.asusoftware.transporter.model.User;
 import com.asusoftware.transporter.model.dto.AddressDto;
 import com.asusoftware.transporter.model.dto.CreateUserDto;
+import com.asusoftware.transporter.model.dto.UserDto;
 import com.asusoftware.transporter.repository.UserRepository;
 import com.asusoftware.transporter.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -28,8 +29,8 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public User findById(UUID id) {
-    return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+  public UserDto findById(UUID id) {
+    return UserDto.mapFromEntity(userRepository.findById(id).orElseThrow(UserNotFoundException::new));
   }
 
   @Override

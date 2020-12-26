@@ -3,6 +3,7 @@ package com.asusoftware.transporter.service.impl;
 import com.asusoftware.transporter.exception.CompanyNotFoundException;
 import com.asusoftware.transporter.model.Company;
 import com.asusoftware.transporter.model.dto.AddressDto;
+import com.asusoftware.transporter.model.dto.CompanyDto;
 import com.asusoftware.transporter.model.dto.CreateCompanyDto;
 import com.asusoftware.transporter.repository.CompanyRepository;
 import com.asusoftware.transporter.service.CompanyService;
@@ -29,8 +30,8 @@ public class CompanyServiceImpl implements CompanyService {
   }
 
   @Override
-  public Company findById(UUID id) {
-    return companyRepository.findById(id).orElseThrow(CompanyNotFoundException::new);
+  public CompanyDto findById(UUID id) {
+    return CompanyDto.mapFromEntity(companyRepository.findById(id).orElseThrow(CompanyNotFoundException::new));
   }
 
   private Company createCompany(CreateCompanyDto createCompanyDto) {
