@@ -60,7 +60,11 @@ public class ParcelServiceImpl implements ParcelService {
         return userRepository.save(user);
     }
 
-    private User findUser(CreateUserDto userDto) {
-        return userRepository.findBySomeCondition(userDto.getFirstName(), userDto.getLastName(), userDto.getEmail(), userDto.getPhone());
+    private Optional<User> findUser(CreateUserDto userDto) {
+        return userRepository.findByFistNameAndLastNameAndEmailAndPhone(
+                userDto.getFirstName(),
+                userDto.getLastName(),
+                userDto.getEmail(),
+                userDto.getPhone();
     }
 }
