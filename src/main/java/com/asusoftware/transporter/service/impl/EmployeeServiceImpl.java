@@ -33,7 +33,6 @@ public class EmployeeServiceImpl implements EmployeeService {
   @Transactional
   public void create(CreateEmployeeDto createEmployeeDto) {
     Company company = companyRepository.findById(createEmployeeDto.getCompanyId()).orElseThrow(CompanyNotFoundException::new);
-    // CompanyDto company = companyService.findById(createEmployeeDto.getCompanyId());
     Employee employee = createEmployee(createEmployeeDto, company);
     employeeRepository.save(employee);
   }
