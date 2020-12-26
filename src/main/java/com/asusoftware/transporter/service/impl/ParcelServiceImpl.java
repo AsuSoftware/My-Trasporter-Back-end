@@ -39,9 +39,11 @@ public class ParcelServiceImpl implements ParcelService {
 
     private Parcel createParcel(CreateParcelDto createParcelDto) {
         Parcel parcel = new Parcel();
+        User sender = findUser(createParcelDto.getSender());
+        User receiver = findUser(createParcelDto.getReceiver());
         parcel.setRegisteredDate(LocalDateTime.now(ZoneOffset.UTC));
-        parcel.setSender((findUser(createParcelDto.getSender()) != null) ? findUser(createParcelDto.getSender()) : createUser(createParcelDto.getSender()));
-        parcel.setReceiver((findUser(createParcelDto.getReceiver()) != null) ? findUser(createParcelDto.getReceiver()) : createUser(createParcelDto.getReceiver()));
+        parcel.setSender((sender != null) ? sender : createUser(createParcelDto.getSender()));
+        parcel.setReceiver((receiver != null) ? receiver : createUser(createParcelDto.getReceiver()));
         parcel.setDetails(createParcelDto.getDetails());
         // @TODO Sa vedem ce facem cu Id de la companie, cum sa implementam daca un employee e free sau nu
         return parcel;
@@ -58,12 +60,7 @@ public class ParcelServiceImpl implements ParcelService {
         return userRepository.save(user);
     }
 
-    private User findUser(CreateUserDto createUserDto) {
-        return userRepository.findAll().stream()
-                .filter(user1 -> Optional.ofNullable(user1.getEmail()).equals(Optional.ofNullable(createUserDto.getEmail())))
-                .filter(user1 -> user1.getFirstName().equals(createUserDto.getFirstName()))
-                .filter(user1 -> user1.getLastName().equals(createUserDto.getLastName()))
-                .filter(user1 -> Optional.ofNullable(user1.getPhone()).equals(Optional.ofNullable(createUserDto.getPhone())))
-                .findFirst().orElse(null);
+    private User findUser(CreateUserDto userDto) {
+        return userRepository.findBySomeCondition(userDto.getFirstName(), userDto.getLastName(), userDto.getEmail(), userDto.getPhone());
     }
 }
