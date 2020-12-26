@@ -2,7 +2,6 @@ package com.asusoftware.transporter.service;
 
 import com.asusoftware.transporter.model.Employee;
 import com.asusoftware.transporter.model.dto.CreateEmployeeDto;
-import com.asusoftware.transporter.model.dto.EmployeeDto;
 
 import java.util.List;
 import java.util.UUID;

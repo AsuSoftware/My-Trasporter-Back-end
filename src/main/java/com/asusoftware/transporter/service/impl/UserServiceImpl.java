@@ -4,7 +4,6 @@ import com.asusoftware.transporter.exception.UserNotFoundException;
 import com.asusoftware.transporter.model.User;
 import com.asusoftware.transporter.model.dto.AddressDto;
 import com.asusoftware.transporter.model.dto.CreateUserDto;
-import com.asusoftware.transporter.model.dto.UserDto;
 import com.asusoftware.transporter.repository.UserRepository;
 import com.asusoftware.transporter.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -23,14 +22,20 @@ public class UserServiceImpl implements UserService {
 
   @Override
   @Transactional
-  public void create(CreateUserDto createUserDto) {
+  public User create(CreateUserDto createUserDto) {
     User user = createUser(createUserDto);
-    userRepository.save(user);
+    return userRepository.save(user);
   }
 
   @Override
   public User findById(UUID id) {
     return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+  }
+
+  @Override
+  public Optional<User> findUserForParcel(CreateUserDto userDto) {
+    return userRepository.findByFirstNameAndLastNameAndEmailAndPhone(
+        userDto.getFirstName(), userDto.getLastName(), userDto.getEmail(), userDto.getPhone());
   }
 
   @Override
