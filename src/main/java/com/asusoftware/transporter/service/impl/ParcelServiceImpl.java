@@ -1,11 +1,14 @@
 package com.asusoftware.transporter.service.impl;
 
 import com.asusoftware.transporter.exception.ParcelNotFoundException;
+import com.asusoftware.transporter.model.Employee;
 import com.asusoftware.transporter.model.Parcel;
 import com.asusoftware.transporter.model.User;
 import com.asusoftware.transporter.model.dto.CreateParcelDto;
 import com.asusoftware.transporter.model.dto.CreateUserDto;
+import com.asusoftware.transporter.model.dto.EmployeeDto;
 import com.asusoftware.transporter.repository.ParcelRepository;
+import com.asusoftware.transporter.service.EmployeeService;
 import com.asusoftware.transporter.service.ParcelService;
 import com.asusoftware.transporter.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +25,7 @@ public class ParcelServiceImpl implements ParcelService {
 
   private final ParcelRepository parcelRepository;
   private final UserService userService;
+  private final EmployeeService employeeService;
 
   @Override
   public void create(CreateParcelDto createParcelDto) {
@@ -31,6 +35,22 @@ public class ParcelServiceImpl implements ParcelService {
   @Override
   public Parcel findById(UUID id) {
     return parcelRepository.findById(id).orElseThrow(ParcelNotFoundException::new);
+  }
+
+  @Override
+  public void takeOrder(UUID orderId, UUID employeeId) {
+    Parcel parcel = parcelRepository.findById(orderId).orElseThrow(ParcelNotFoundException::new);
+    Employee employee = employeeService.findById(employeeId);
+    parcel.setCourier(employee);
+    parcel.setTakeoverDate(LocalDateTime.now(ZoneOffset.UTC));
+    parcelRepository.save(parcel);
+  }
+
+  @Override
+  public void deliverOrder(UUID orderId) {
+    Parcel parcel = parcelRepository.findById(orderId).orElseThrow(ParcelNotFoundException::new);
+    parcel.setDeliveryDate(LocalDateTime.now(ZoneOffset.UTC));
+    parcelRepository.save(parcel);
   }
 
   private Parcel createParcel(CreateParcelDto createParcelDto) {
