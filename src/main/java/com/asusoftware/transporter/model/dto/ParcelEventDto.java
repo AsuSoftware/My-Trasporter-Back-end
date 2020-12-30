@@ -6,13 +6,10 @@ import lombok.Setter;
 
 import java.util.UUID;
 
-/**
- * transporter Created by Antonio on 12/29/2020
- */
-
+/** transporter Created by Antonio on 12/29/2020 */
 @Getter
 @Setter
-public class EmployeeActionDto {
-    private UUID employeeId;
-    private ParcelEventType eventType;
+public class ParcelEventDto {
+  private UUID employeeId;
+  private ParcelEventType eventType;
 }

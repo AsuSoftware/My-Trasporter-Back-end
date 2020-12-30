@@ -1,14 +1,13 @@
 package com.asusoftware.transporter.service.impl;
 
 import com.asusoftware.transporter.exception.ParcelNotFoundException;
-import com.asusoftware.transporter.model.*;
+import com.asusoftware.transporter.model.Parcel;
+import com.asusoftware.transporter.model.ParcelStatus;
+import com.asusoftware.transporter.model.User;
 import com.asusoftware.transporter.model.dto.CreateParcelDto;
 import com.asusoftware.transporter.model.dto.CreateUserDto;
-import com.asusoftware.transporter.model.dto.EmployeeActionDto;
-import com.asusoftware.transporter.model.dto.EmployeeDto;
+import com.asusoftware.transporter.model.dto.ParcelEventDto;
 import com.asusoftware.transporter.repository.ParcelRepository;
-import com.asusoftware.transporter.service.EmployeeOperation;
-import com.asusoftware.transporter.service.EmployeeService;
 import com.asusoftware.transporter.service.ParcelService;
 import com.asusoftware.transporter.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 /** transporter Created by Antonio on 12/25/2020 */
@@ -27,7 +24,7 @@ public class ParcelServiceImpl implements ParcelService {
 
   private final ParcelRepository parcelRepository;
   private final UserService userService;
-  private final EmployeeService employeeService;
+  private final ParcelEventInvoker parcelEventInvoker;
 
   @Override
   public void create(CreateParcelDto createParcelDto) {
@@ -40,30 +37,10 @@ public class ParcelServiceImpl implements ParcelService {
   }
 
   @Override
-  public void takeOrDeliver(UUID orderId, EmployeeActionDto employeeActionDto) {
-    Parcel parcel = parcelRepository.findById(orderId).orElseThrow(ParcelNotFoundException::new);
-    Employee employee = employeeService.findById(employeeActionDto.getEmployeeId());
-    Map<ParcelEventType, EmployeeOperation> commandMap = new HashMap<>();
-    commandMap.put(ParcelEventType.PICK, () -> {
-      parcel.setCourier(employee);
-      parcel.setTakeoverDate(LocalDateTime.now(ZoneOffset.UTC));
-      parcel.setParcelStatus(ParcelStatus.PICKED_UP);
-      parcelRepository.save(parcel);
-    });
-
-    commandMap.put(ParcelEventType.DELIVER, () -> {
-      parcel.setDeliveryDate(LocalDateTime.now(ZoneOffset.UTC));
-      parcel.setParcelStatus(ParcelStatus.DELIVERING);
-      parcelRepository.save(parcel);
-    });
-    commandMap.get(employeeActionDto.getEventType()).execute();
-  }
-
-  @Override
-  public void deliverOrder(UUID orderId) {
-    Parcel parcel = parcelRepository.findById(orderId).orElseThrow(ParcelNotFoundException::new);
-    parcel.setDeliveryDate(LocalDateTime.now(ZoneOffset.UTC));
-    parcelRepository.save(parcel);
+  public void executeEvent(UUID parcelId, ParcelEventDto parcelEventDto) {
+    Parcel parcel = parcelRepository.findById(parcelId).orElseThrow(ParcelNotFoundException::new);
+    parcelEventInvoker.invoke(
+        parcelEventDto.getEventType(), parcel, parcelEventDto.getEmployeeId());
   }
 
   private Parcel createParcel(CreateParcelDto createParcelDto) {
@@ -76,7 +53,7 @@ public class ParcelServiceImpl implements ParcelService {
     return parcel;
   }
 
-  //TODO momentan se creaza userul daca nu exista
+  // TODO momentan se creaza userul daca nu exista
   // daca exista il folosim pe ala -> atentie ca ignoram adresa care vine pe CreateUserDto
   // poate fi diferita de cea salvata in userul gasit.
   private User findUserOrCreate(CreateUserDto userDto) {
