@@ -1,5 +1,6 @@
 package com.asusoftware.transporter.controller;
 
+import com.asusoftware.transporter.model.dto.EmployeeActionDto;
 import com.asusoftware.transporter.service.ParcelService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -15,14 +16,8 @@ public class ParcelController {
 
   private final ParcelService parcelService;
 
-  @PostMapping(path = "/take/{employeeId}/{id}")
-  public void takeOrder(@PathVariable("id") UUID orderId, @PathVariable("employeeId") UUID employeeId) {
-    parcelService.takeOrder(orderId, employeeId);
+  @PostMapping(path = "/{id}/event")
+  public void takeOrDeliver(@PathVariable("id") UUID orderId, @RequestBody EmployeeActionDto employeeActionDto) {
+    parcelService.takeOrDeliver(orderId, employeeActionDto);
   }
-
-  @PostMapping(path = "/deliver/{id}")
-  public void deliverOrder(@PathVariable("id") UUID orderId) {
-    parcelService.deliverOrder(orderId);
-  }
-
 }

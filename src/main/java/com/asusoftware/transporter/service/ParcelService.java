@@ -2,6 +2,7 @@ package com.asusoftware.transporter.service;
 
 import com.asusoftware.transporter.model.Parcel;
 import com.asusoftware.transporter.model.dto.CreateParcelDto;
+import com.asusoftware.transporter.model.dto.EmployeeActionDto;
 import com.asusoftware.transporter.model.dto.EmployeeDto;
 import com.asusoftware.transporter.model.dto.ParcelDto;
 
@@ -11,6 +12,6 @@ import java.util.UUID;
 public interface ParcelService {
   void create(CreateParcelDto createParcelDto);
   Parcel findById(UUID id);
-  void takeOrder(UUID orderId, UUID employeeId);
+  void takeOrDeliver(UUID orderId, EmployeeActionDto employeeActionDto);
   void deliverOrder(UUID orderId);
 }

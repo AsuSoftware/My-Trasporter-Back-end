@@ -1,13 +1,13 @@
 package com.asusoftware.transporter.service.impl;
 
 import com.asusoftware.transporter.exception.ParcelNotFoundException;
-import com.asusoftware.transporter.model.Employee;
-import com.asusoftware.transporter.model.Parcel;
-import com.asusoftware.transporter.model.User;
+import com.asusoftware.transporter.model.*;
 import com.asusoftware.transporter.model.dto.CreateParcelDto;
 import com.asusoftware.transporter.model.dto.CreateUserDto;
+import com.asusoftware.transporter.model.dto.EmployeeActionDto;
 import com.asusoftware.transporter.model.dto.EmployeeDto;
 import com.asusoftware.transporter.repository.ParcelRepository;
+import com.asusoftware.transporter.service.EmployeeOperation;
 import com.asusoftware.transporter.service.EmployeeService;
 import com.asusoftware.transporter.service.ParcelService;
 import com.asusoftware.transporter.service.UserService;
@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 /** transporter Created by Antonio on 12/25/2020 */
@@ -38,12 +40,23 @@ public class ParcelServiceImpl implements ParcelService {
   }
 
   @Override
-  public void takeOrder(UUID orderId, UUID employeeId) {
+  public void takeOrDeliver(UUID orderId, EmployeeActionDto employeeActionDto) {
     Parcel parcel = parcelRepository.findById(orderId).orElseThrow(ParcelNotFoundException::new);
-    Employee employee = employeeService.findById(employeeId);
-    parcel.setCourier(employee);
-    parcel.setTakeoverDate(LocalDateTime.now(ZoneOffset.UTC));
-    parcelRepository.save(parcel);
+    Employee employee = employeeService.findById(employeeActionDto.getEmployeeId());
+    Map<ParcelEventType, EmployeeOperation> commandMap = new HashMap<>();
+    commandMap.put(ParcelEventType.PICK, () -> {
+      parcel.setCourier(employee);
+      parcel.setTakeoverDate(LocalDateTime.now(ZoneOffset.UTC));
+      parcel.setParcelStatus(ParcelStatus.PICKED_UP);
+      parcelRepository.save(parcel);
+    });
+
+    commandMap.put(ParcelEventType.DELIVER, () -> {
+      parcel.setDeliveryDate(LocalDateTime.now(ZoneOffset.UTC));
+      parcel.setParcelStatus(ParcelStatus.DELIVERING);
+      parcelRepository.save(parcel);
+    });
+    commandMap.get(employeeActionDto.getEventType()).execute();
   }
 
   @Override
@@ -59,6 +72,7 @@ public class ParcelServiceImpl implements ParcelService {
     parcel.setSender(findUserOrCreate(createParcelDto.getSender()));
     parcel.setReceiver(findUserOrCreate(createParcelDto.getReceiver()));
     parcel.setDetails(createParcelDto.getDetails());
+    parcel.setParcelStatus(ParcelStatus.NEW);
     return parcel;
   }
 

@@ -35,6 +35,10 @@ public class Parcel {
   private String details;
 
   @NotNull
+  @Column(name = "parcel_status")
+  private ParcelStatus parcelStatus;
+
+  @NotNull
   @ManyToOne
   @JoinColumn(name = "sender_id", nullable = false)
   private User sender;
