@@ -1,12 +1,10 @@
 package com.asusoftware.transporter.service.impl;
 
-
 import com.asusoftware.transporter.exception.EmployeeNotFoundException;
 import com.asusoftware.transporter.model.Company;
 import com.asusoftware.transporter.model.Employee;
 import com.asusoftware.transporter.model.dto.AddressDto;
 import com.asusoftware.transporter.model.dto.CreateEmployeeDto;
-import com.asusoftware.transporter.repository.CompanyRepository;
 import com.asusoftware.transporter.repository.EmployeeRepository;
 import com.asusoftware.transporter.service.CompanyService;
 import com.asusoftware.transporter.service.EmployeeService;

@@ -3,7 +3,6 @@ package com.asusoftware.transporter.service.impl;
 import com.asusoftware.transporter.exception.CompanyNotFoundException;
 import com.asusoftware.transporter.model.Company;
 import com.asusoftware.transporter.model.dto.AddressDto;
-import com.asusoftware.transporter.model.dto.CompanyDto;
 import com.asusoftware.transporter.model.dto.CreateCompanyDto;
 import com.asusoftware.transporter.repository.CompanyRepository;
 import com.asusoftware.transporter.service.CompanyService;
