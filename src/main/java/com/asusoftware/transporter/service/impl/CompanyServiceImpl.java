@@ -1,10 +1,15 @@
 package com.asusoftware.transporter.service.impl;
 
 import com.asusoftware.transporter.exception.CompanyNotFoundException;
+import com.asusoftware.transporter.exception.EmployeeNotFoundException;
 import com.asusoftware.transporter.model.Company;
+import com.asusoftware.transporter.model.Employee;
 import com.asusoftware.transporter.model.dto.AddressDto;
 import com.asusoftware.transporter.model.dto.CreateCompanyDto;
+import com.asusoftware.transporter.model.dto.RemoveEmployeeDto;
+import com.asusoftware.transporter.model.dto.UpdateCompanyDto;
 import com.asusoftware.transporter.repository.CompanyRepository;
+import com.asusoftware.transporter.repository.EmployeeRepository;
 import com.asusoftware.transporter.service.CompanyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +24,7 @@ import java.util.UUID;
 public class CompanyServiceImpl implements CompanyService {
 
   private final CompanyRepository companyRepository;
+  private final EmployeeRepository employeeRepository;
 
   @Override
   @Transactional
@@ -31,6 +37,26 @@ public class CompanyServiceImpl implements CompanyService {
   @Override
   public Company findById(UUID id) {
     return companyRepository.findById(id).orElseThrow(CompanyNotFoundException::new);
+  }
+
+  @Override
+  public void update(UUID companyId, UpdateCompanyDto updateCompanyDto) {
+    Company company = companyRepository.findById(companyId).orElseThrow(CompanyNotFoundException::new);
+    company.setName(updateCompanyDto.getName());
+    company.setImage(updateCompanyDto.getImage());
+    company.setDescription(company.getDescription());
+    company.setAddress(Optional.ofNullable(updateCompanyDto.getAddress()).map(AddressDto::toAddress).orElse(company.getAddress()));
+    companyRepository.save(company);
+  }
+
+  @Override
+  public void removeEmployee(RemoveEmployeeDto removeEmployeeDto) {
+    Employee employee = employeeRepository.findById(removeEmployeeDto.getEmployeeId()).orElseThrow(EmployeeNotFoundException::new);
+    Company company = companyRepository.findById(removeEmployeeDto.getCompanyId()).orElseThrow(CompanyNotFoundException::new);
+    if (employee.getCompany().equals(company)) {
+      employee.setCompany(null);
+      employeeRepository.save(employee);
+    }
   }
 
   private Company createCompany(CreateCompanyDto createCompanyDto) {

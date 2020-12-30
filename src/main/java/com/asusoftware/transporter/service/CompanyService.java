@@ -2,6 +2,8 @@ package com.asusoftware.transporter.service;
 
 import com.asusoftware.transporter.model.Company;
 import com.asusoftware.transporter.model.dto.CreateCompanyDto;
+import com.asusoftware.transporter.model.dto.RemoveEmployeeDto;
+import com.asusoftware.transporter.model.dto.UpdateCompanyDto;
 
 import java.util.UUID;
 
@@ -9,6 +11,7 @@ import java.util.UUID;
 public interface CompanyService {
 
   UUID create(CreateCompanyDto createCompanyDto);
-
   Company findById(UUID id);
+  void update(UUID companyId, UpdateCompanyDto updateCompanyDto);
+  void removeEmployee(RemoveEmployeeDto removeEmployeeDto);
 }

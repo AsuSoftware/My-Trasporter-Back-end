@@ -1,14 +1,13 @@
 package com.asusoftware.transporter.controller;
 
 import com.asusoftware.transporter.model.dto.CreateEmployeeDto;
+import com.asusoftware.transporter.model.dto.UpdateEmployeeDto;
 import com.asusoftware.transporter.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.UUID;
 
 /** my-transporter Created by Catalin on 12/24/2020 */
 @RestController
@@ -21,5 +20,10 @@ public class EmployeeController {
   @PostMapping
   public void create(@Valid @RequestBody CreateEmployeeDto createEmployeeDto) {
     employeeService.create(createEmployeeDto);
+  }
+
+  @PutMapping(path = "/id")
+  public void update(@PathVariable("id") UUID employeeId, @Valid @RequestBody UpdateEmployeeDto updateEmployeeDto) {
+    employeeService.update(employeeId, updateEmployeeDto);
   }
 }

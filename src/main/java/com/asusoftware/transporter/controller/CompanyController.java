@@ -1,12 +1,11 @@
 package com.asusoftware.transporter.controller;
 
 import com.asusoftware.transporter.model.dto.CreateCompanyDto;
+import com.asusoftware.transporter.model.dto.RemoveEmployeeDto;
+import com.asusoftware.transporter.model.dto.UpdateCompanyDto;
 import com.asusoftware.transporter.service.CompanyService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.UUID;
@@ -22,5 +21,15 @@ public class CompanyController {
   @PostMapping
   public UUID create(@Valid @RequestBody CreateCompanyDto createCompanyDto) {
     return companyService.create(createCompanyDto);
+  }
+
+  @PutMapping(path = "/{id}")
+  public void update(@PathVariable("id") UUID companyId, @Valid @RequestBody UpdateCompanyDto updateCompanyDto) {
+    companyService.update(companyId, updateCompanyDto);
+  }
+
+  @PutMapping(path = "/remove/employee")
+  public void removeEmployee(@Valid @RequestBody RemoveEmployeeDto removeEmployeeDto) {
+    companyService.removeEmployee(removeEmployeeDto);
   }
 }
