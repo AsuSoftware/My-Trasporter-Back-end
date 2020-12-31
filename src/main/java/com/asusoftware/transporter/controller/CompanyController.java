@@ -1,7 +1,6 @@
 package com.asusoftware.transporter.controller;
 
 import com.asusoftware.transporter.model.dto.CreateCompanyDto;
-import com.asusoftware.transporter.model.dto.RemoveEmployeeDto;
 import com.asusoftware.transporter.model.dto.UpdateCompanyDto;
 import com.asusoftware.transporter.service.CompanyService;
 import lombok.RequiredArgsConstructor;

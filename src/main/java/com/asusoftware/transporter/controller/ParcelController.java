@@ -17,13 +17,13 @@ public class ParcelController {
   private final ParcelService parcelService;
 
   @PostMapping
-  public void createParcel(@RequestBody CreateParcelDto createParcelDto) {
+  public void create(@RequestBody CreateParcelDto createParcelDto) {
     parcelService.create(createParcelDto);
   }
 
   @PostMapping(path = "/{id}/event")
   public void execute(
-      @PathVariable("id") UUID orderId, @RequestBody ParcelEventDto parcelEventDto) {
-    parcelService.executeEvent(orderId, parcelEventDto);
+      @PathVariable("id") UUID id, @RequestBody ParcelEventDto parcelEventDto) {
+    parcelService.executeEvent(id, parcelEventDto);
   }
 }

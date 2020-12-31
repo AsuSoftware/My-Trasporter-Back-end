@@ -1,12 +1,9 @@
 package com.asusoftware.transporter.service.impl;
 
 import com.asusoftware.transporter.exception.CompanyNotFoundException;
-import com.asusoftware.transporter.exception.EmployeeNotFoundException;
 import com.asusoftware.transporter.model.Company;
-import com.asusoftware.transporter.model.Employee;
 import com.asusoftware.transporter.model.dto.AddressDto;
 import com.asusoftware.transporter.model.dto.CreateCompanyDto;
-import com.asusoftware.transporter.model.dto.RemoveEmployeeDto;
 import com.asusoftware.transporter.model.dto.UpdateCompanyDto;
 import com.asusoftware.transporter.repository.CompanyRepository;
 import com.asusoftware.transporter.repository.EmployeeRepository;
@@ -40,8 +37,8 @@ public class CompanyServiceImpl implements CompanyService {
   }
 
   @Override
-  public void update(UUID companyId, UpdateCompanyDto updateCompanyDto) {
-    Company company = findById(companyId);
+  public void update(UUID id, UpdateCompanyDto updateCompanyDto) {
+    Company company = findById(id);
     company.setName(updateCompanyDto.getName());
     company.setImage(updateCompanyDto.getImage());
     company.setDescription(company.getDescription());

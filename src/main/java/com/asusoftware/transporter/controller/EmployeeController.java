@@ -1,7 +1,6 @@
 package com.asusoftware.transporter.controller;
 
 import com.asusoftware.transporter.model.dto.CreateEmployeeDto;
-import com.asusoftware.transporter.model.dto.RemoveEmployeeDto;
 import com.asusoftware.transporter.model.dto.UpdateEmployeeDto;
 import com.asusoftware.transporter.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +28,7 @@ public class EmployeeController {
   }
 
   @DeleteMapping(path = "/{id}")
-  public void removeEmployee(@Valid @RequestBody RemoveEmployeeDto removeEmployeeDto) {
-    employeeService.removeEmployee(removeEmployeeDto);
+  public void delete(@PathVariable("id") UUID id) {
+    employeeService.delete(id);
   }
 }

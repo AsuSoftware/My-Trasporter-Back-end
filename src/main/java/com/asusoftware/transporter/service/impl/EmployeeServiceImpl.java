@@ -1,12 +1,10 @@
 package com.asusoftware.transporter.service.impl;
 
-import com.asusoftware.transporter.exception.CompanyNotFoundException;
 import com.asusoftware.transporter.exception.EmployeeNotFoundException;
 import com.asusoftware.transporter.model.Company;
 import com.asusoftware.transporter.model.Employee;
 import com.asusoftware.transporter.model.dto.AddressDto;
 import com.asusoftware.transporter.model.dto.CreateEmployeeDto;
-import com.asusoftware.transporter.model.dto.RemoveEmployeeDto;
 import com.asusoftware.transporter.model.dto.UpdateEmployeeDto;
 import com.asusoftware.transporter.repository.EmployeeRepository;
 import com.asusoftware.transporter.service.CompanyService;
@@ -41,8 +39,8 @@ public class EmployeeServiceImpl implements EmployeeService {
   }
 
   @Override
-  public void update(UUID employeeId, UpdateEmployeeDto updateEmployeeDto) {
-    Employee employee = employeeRepository.findById(employeeId).orElseThrow(EmployeeNotFoundException::new);
+  public void update(UUID id, UpdateEmployeeDto updateEmployeeDto) {
+    Employee employee = findById(id);
     employee.setFirstName(updateEmployeeDto.getFirstName());
     employee.setLastName(updateEmployeeDto.getLastName());
     employee.setEmail(updateEmployeeDto.getEmail());
@@ -50,15 +48,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     employee.setRole(updateEmployeeDto.getRole());
     employee.setAddress(Optional.ofNullable(updateEmployeeDto.getAddress()).map(AddressDto::toAddress).orElse(employee.getAddress()));
     employeeRepository.save(employee);
-  }
-
-  @Override
-  public void removeEmployee(RemoveEmployeeDto removeEmployeeDto) {
-    Employee employee = findById(removeEmployeeDto.getEmployeeId());
-    Company company = companyService.findById(removeEmployeeDto.getCompanyId());
-    if (employee.getCompany().equals(company)) {
-      delete(employee.getId());
-    }
   }
 
   @Override
