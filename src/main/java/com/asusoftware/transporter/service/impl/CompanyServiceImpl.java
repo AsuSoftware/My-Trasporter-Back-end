@@ -4,7 +4,9 @@ import com.asusoftware.transporter.exception.CompanyNotFoundException;
 import com.asusoftware.transporter.model.Company;
 import com.asusoftware.transporter.model.dto.AddressDto;
 import com.asusoftware.transporter.model.dto.CreateCompanyDto;
+import com.asusoftware.transporter.model.dto.UpdateCompanyDto;
 import com.asusoftware.transporter.repository.CompanyRepository;
+import com.asusoftware.transporter.repository.EmployeeRepository;
 import com.asusoftware.transporter.service.CompanyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,7 @@ import java.util.UUID;
 public class CompanyServiceImpl implements CompanyService {
 
   private final CompanyRepository companyRepository;
+  private final EmployeeRepository employeeRepository;
 
   @Override
   @Transactional
@@ -32,6 +35,17 @@ public class CompanyServiceImpl implements CompanyService {
   public Company findById(UUID id) {
     return companyRepository.findById(id).orElseThrow(CompanyNotFoundException::new);
   }
+
+  @Override
+  public void update(UUID id, UpdateCompanyDto updateCompanyDto) {
+    Company company = findById(id);
+    company.setName(updateCompanyDto.getName());
+    company.setImage(updateCompanyDto.getImage());
+    company.setDescription(company.getDescription());
+    company.setAddress(Optional.ofNullable(updateCompanyDto.getAddress()).map(AddressDto::toAddress).orElse(company.getAddress()));
+    companyRepository.save(company);
+  }
+
 
   private Company createCompany(CreateCompanyDto createCompanyDto) {
     Company company = new Company();

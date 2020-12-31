@@ -1,13 +1,10 @@
 package com.asusoftware.transporter.controller;
 
+import com.asusoftware.transporter.model.dto.CreateParcelDto;
 import com.asusoftware.transporter.model.dto.ParcelEventDto;
 import com.asusoftware.transporter.service.ParcelService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -19,9 +16,14 @@ public class ParcelController {
 
   private final ParcelService parcelService;
 
+  @PostMapping
+  public void create(@RequestBody CreateParcelDto createParcelDto) {
+    parcelService.create(createParcelDto);
+  }
+
   @PostMapping(path = "/{id}/event")
   public void execute(
-      @PathVariable("id") UUID orderId, @RequestBody ParcelEventDto parcelEventDto) {
-    parcelService.executeEvent(orderId, parcelEventDto);
+      @PathVariable("id") UUID id, @RequestBody ParcelEventDto parcelEventDto) {
+    parcelService.executeEvent(id, parcelEventDto);
   }
 }
