@@ -2,6 +2,7 @@ package com.asusoftware.transporter.service;
 
 import com.asusoftware.transporter.model.Employee;
 import com.asusoftware.transporter.model.dto.CreateEmployeeDto;
+import com.asusoftware.transporter.model.dto.RemoveEmployeeDto;
 import com.asusoftware.transporter.model.dto.UpdateEmployeeDto;
 
 import java.util.List;
@@ -14,5 +15,6 @@ public interface EmployeeService {
   Employee findById(UUID id);
   void update(UUID employeeId, UpdateEmployeeDto updateEmployeeDto);
   void delete(UUID id);
+  void removeEmployee(RemoveEmployeeDto removeEmployeeDto);
   List<Employee> findFreeEmployees();
 }

@@ -13,5 +13,4 @@ public interface CompanyService {
   UUID create(CreateCompanyDto createCompanyDto);
   Company findById(UUID id);
   void update(UUID companyId, UpdateCompanyDto updateCompanyDto);
-  void removeEmployee(RemoveEmployeeDto removeEmployeeDto);
 }

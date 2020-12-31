@@ -27,9 +27,4 @@ public class CompanyController {
   public void update(@PathVariable("id") UUID companyId, @Valid @RequestBody UpdateCompanyDto updateCompanyDto) {
     companyService.update(companyId, updateCompanyDto);
   }
-
-  @PutMapping(path = "/remove/employee")
-  public void removeEmployee(@Valid @RequestBody RemoveEmployeeDto removeEmployeeDto) {
-    companyService.removeEmployee(removeEmployeeDto);
-  }
 }

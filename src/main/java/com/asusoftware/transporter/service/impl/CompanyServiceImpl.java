@@ -41,7 +41,7 @@ public class CompanyServiceImpl implements CompanyService {
 
   @Override
   public void update(UUID companyId, UpdateCompanyDto updateCompanyDto) {
-    Company company = companyRepository.findById(companyId).orElseThrow(CompanyNotFoundException::new);
+    Company company = findById(companyId);
     company.setName(updateCompanyDto.getName());
     company.setImage(updateCompanyDto.getImage());
     company.setDescription(company.getDescription());
@@ -49,15 +49,6 @@ public class CompanyServiceImpl implements CompanyService {
     companyRepository.save(company);
   }
 
-  @Override
-  public void removeEmployee(RemoveEmployeeDto removeEmployeeDto) {
-    Employee employee = employeeRepository.findById(removeEmployeeDto.getEmployeeId()).orElseThrow(EmployeeNotFoundException::new);
-    Company company = companyRepository.findById(removeEmployeeDto.getCompanyId()).orElseThrow(CompanyNotFoundException::new);
-    if (employee.getCompany().equals(company)) {
-      employee.setCompany(null);
-      employeeRepository.save(employee);
-    }
-  }
 
   private Company createCompany(CreateCompanyDto createCompanyDto) {
     Company company = new Company();
